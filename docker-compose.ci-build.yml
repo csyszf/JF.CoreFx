@@ -1,0 +1,11 @@
+version: '3.2'
+
+services:
+  ci-build:
+    image: microsoft/dotnet:2.0.0-sdk
+    volumes:
+      - .:/src
+      - ~/.nuget/packages:/root/.nuget/packages
+      - ~/.local/share/NuGet/v3-cache:/root/.local/share/NuGet/v3-cache
+    working_dir: /src
+    command: bash -c -e '${cmd}'
