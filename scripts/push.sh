@@ -1,7 +1,7 @@
 
 # 0: scripts path 1: versuffix 2: source 3: apikey
 set -e
-projs=("JF.Domain")
+projs=("JF.Domain" "JF.Common")
 for arg in $projs
 do
     dotnet pack --version-suffix $1 -c Release -o ./src/$arg
