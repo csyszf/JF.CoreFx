@@ -8,4 +8,8 @@ namespace JF.Domain.Command
     public interface ICommand<out R>
     {
     }
+
+    public interface ICommand
+    {
+    }
 }

@@ -10,4 +10,9 @@ namespace JF.Domain.Command
     {
         Task<R> HandleAsync(T command, CancellationToken cancellationToken = default);
     }
+
+    public interface ICommandHandler<in T> where T : ICommand
+    {
+        Task<CommandResult> HandleAsync(T command, CancellationToken cancellationToken = default);
+    }
 }

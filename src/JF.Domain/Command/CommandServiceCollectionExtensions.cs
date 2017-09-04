@@ -20,16 +20,14 @@ namespace JF.Domain.Command
             this IServiceCollection services,
             Type cmdHandlerType)
         {
-            foreach(var i in cmdHandlerType.GetTypeInfo().GetInterfaces())
+            foreach (var i in cmdHandlerType.GetTypeInfo().GetInterfaces())
             {
-                if (!i.GetGenericTypeDefinition().Equals(typeof(ICommandHandler<,>)))
-                    continue;
-                var gta = i.GenericTypeArguments;
-                var cmdType = gta[0];
-                var retType = gta[1];
-
-                services.AddScoped(i, cmdHandlerType);
-            }            
+                var gtd = i.GetGenericTypeDefinition();
+                if (gtd.Equals(typeof(ICommandHandler<,>)) || gtd.Equals(typeof(ICommandHandler<>)))
+                {
+                    services.AddScoped(i, cmdHandlerType);
+                }
+            }
             return services;
         }
     }
