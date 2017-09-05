@@ -9,7 +9,7 @@ namespace JF.Domain.Event
     public abstract class DomainEventHandler<TEvent>: IDomainEventHandler<TEvent> where TEvent: IDomainEvent
     {
         private readonly IServiceScope _scope;
-        private readonly IServiceProvider _provider;
+        protected readonly IServiceProvider _provider;
         public DomainEventHandler(IServiceScopeFactory scopeFactory)
         {
             _provider = scopeFactory?.CreateScope()?.ServiceProvider ?? throw new ArgumentNullException(nameof(scopeFactory));
