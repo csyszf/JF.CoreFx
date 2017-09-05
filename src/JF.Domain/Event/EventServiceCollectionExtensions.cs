@@ -14,7 +14,7 @@ namespace JF.Domain.Event
             Type domainEventHandlerType = typeof(IDomainEventHandler<TEvent>);
             foreach (var handlerType in handlerTypes)
             {
-                if (handlerType.IsAssignableFrom(domainEventHandlerType))
+                if (domainEventHandlerType.IsAssignableFrom(handlerType))
                 {
                     services.AddTransient(domainEventHandlerType, handlerType);
                 }

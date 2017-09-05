@@ -9,7 +9,7 @@ using Xunit;
 
 namespace JF.Domain.Tests
 {
-    public class DIExtensionsTests
+    public class CommandDIExtensionsTests
     {
         [Fact]
         public void ComplexHandlerDI()
@@ -40,4 +40,6 @@ namespace JF.Domain.Tests
             throw new NotImplementedException();
         }
     }
+
+
 }
