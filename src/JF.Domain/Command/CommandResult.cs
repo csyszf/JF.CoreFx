@@ -6,6 +6,7 @@ namespace JF.Domain.Command
 {
     public class CommandResult
     {
+        public static CommandResult Ok => new CommandResult();
         public CommandResult()
         { }
         public CommandResult(string errorCode)
