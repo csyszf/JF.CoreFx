@@ -5,39 +5,48 @@ using System.Threading;
 using System.Threading.Tasks;
 using JF.Domain.Event;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
 using Xunit;
 
 namespace JF.Domain.Tests
 {
     public class EventBusTests
     {
+
         [Fact]
         public async Task PublishDomainEvent()
         {
             var services = new ServiceCollection();
             services.AddSingleton<IEventBus, EventBus>();
-            var handlers = new Type[] { typeof(TestEventHandler) };
-            services.AddDomainEvent<TestEvent>(handlers);
+            var mockHandler = new Mock<DomainEventHandler<TestEvent>>();
+            services.AddTransient<IDomainEventHandler<TestEvent>>(_ => mockHandler.Object);
             var sp = services.BuildServiceProvider();
 
             var eventBus = sp.GetRequiredService<IEventBus>();
             await eventBus.PublishDomainEvent(new TestEvent());
 
-            Assert.Equal(handlers.Length, TestEvent.cnt);
+            mockHandler.Verify(_ => _.RecieveAsync(It.IsAny<TestEvent>()), Times.Once);
         }
 
-        class TestEvent : IDomainEvent
+        [Fact]
+        public async Task PublishIDomainEvent()
         {
-            public static int cnt = 0;
+            var services = new ServiceCollection();
+            services.AddSingleton<IEventBus, EventBus>();
+            var mockHandler = new Mock<DomainEventHandler<TestEvent>>();
+            services.AddTransient<IDomainEventHandler<TestEvent>>(_ => mockHandler.Object);
+            var sp = services.BuildServiceProvider();
+
+            var eventBus = sp.GetRequiredService<IEventBus>();
+            var @event = new TestEvent() as IDomainEvent;
+            await eventBus.PublishDomainEvent(@event);
+
+            mockHandler.Verify(_ => _.RecieveAsync(It.IsAny<TestEvent>()), Times.Once);
         }
 
-        class TestEventHandler : DomainEventHandler<TestEvent>
+        public class TestEvent : IDomainEvent
         {
-            public override Task RecieveAsync(TestEvent @event)
-            {
-                Interlocked.Increment(ref TestEvent.cnt);
-                return Task.CompletedTask;
-            }
         }
+
     }
 }

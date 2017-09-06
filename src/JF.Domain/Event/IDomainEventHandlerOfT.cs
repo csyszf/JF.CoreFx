@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace JF.Domain.Event
 {
-    public interface IDomainEventHandler
+    public interface IDomainEventHandler<TEvent>: IDomainEventHandler where TEvent : IDomainEvent
     {
-        Task RecieveAsync(IDomainEvent @event);
+        Task RecieveAsync(TEvent @event);
     }
 }

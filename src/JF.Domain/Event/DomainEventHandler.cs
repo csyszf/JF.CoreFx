@@ -9,5 +9,10 @@ namespace JF.Domain.Event
     public abstract class DomainEventHandler<TEvent>: IDomainEventHandler<TEvent> where TEvent: IDomainEvent
     {
         public abstract Task RecieveAsync(TEvent @event);
+
+        public Task RecieveAsync(IDomainEvent @event)
+        {
+            return RecieveAsync((TEvent)@event);
+        }
     }
 }

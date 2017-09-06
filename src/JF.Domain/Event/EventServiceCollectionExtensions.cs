@@ -11,12 +11,13 @@ namespace JF.Domain.Event
         public static IServiceCollection AddDomainEvent<TEvent>(this IServiceCollection services, params Type[] handlerTypes)
             where TEvent: IDomainEvent
         {
-            Type domainEventHandlerType = typeof(IDomainEventHandler<TEvent>);
+            Type domainEventHandlerInterface = typeof(IDomainEventHandler<TEvent>);
+            Type domainEventHandlerType = typeof(DomainEventHandler<TEvent>);
             foreach (var handlerType in handlerTypes)
             {
                 if (domainEventHandlerType.IsAssignableFrom(handlerType))
                 {
-                    services.AddTransient(domainEventHandlerType, handlerType);
+                    services.AddTransient(domainEventHandlerInterface, handlerType);
                 }
             }
             return services;
