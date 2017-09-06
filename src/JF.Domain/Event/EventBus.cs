@@ -17,10 +17,9 @@ namespace JF.Domain.Event
         public Task PublishDomainEvent<T>(T @event) where T : IDomainEvent
         {
             var handlers = _serviceProvider.GetServices<IDomainEventHandler<T>>();
-            var tasks = handlers.Select(h => h.RecieveAsync(@event));
-            foreach (var task in tasks)
+            foreach (var handler in handlers)
             {
-                task.Start(TaskScheduler.Default);
+                Task.Run(()=>handler.RecieveAsync(@event));
             }
             return Task.CompletedTask;
         }
