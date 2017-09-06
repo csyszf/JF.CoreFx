@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace JF.Domain.Event
 {
-    public class EventBus
+    public class EventBus: IEventBus
     {
         private readonly IServiceProvider _serviceProvider;
         public EventBus(IServiceProvider serviceProvider)
