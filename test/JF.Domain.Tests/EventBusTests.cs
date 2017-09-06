@@ -44,6 +44,22 @@ namespace JF.Domain.Tests
             mockHandler.Verify(_ => _.RecieveAsync(It.IsAny<TestEvent>()), Times.Once);
         }
 
+        [Fact]
+        public async Task PublishEventOfDomain()
+        {
+            var services = new ServiceCollection();
+            services.AddSingleton<IEventBus, EventBus>();
+            var mockHandler = new Mock<DomainEventHandler<TestEvent>>();
+            services.AddTransient<IDomainEventHandler<TestEvent>>(_ => mockHandler.Object);
+            var sp = services.BuildServiceProvider();
+
+            var eventBus = sp.GetRequiredService<IEventBus>();
+            var @event = new TestEvent() as IEvent;
+            await eventBus.PublishEvent(@event);
+
+            mockHandler.Verify(_ => _.RecieveAsync(It.IsAny<TestEvent>()), Times.Once);
+        }
+
         public class TestEvent : IDomainEvent
         {
         }

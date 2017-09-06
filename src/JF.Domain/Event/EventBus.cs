@@ -14,6 +14,14 @@ namespace JF.Domain.Event
         {
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
+        public Task PublishEvent(IEvent @event)
+        {
+            if(@event is IDomainEvent domainEvent)
+            {
+                return PublishDomainEvent(domainEvent);
+            }
+            return Task.CompletedTask;
+        }
         public Task PublishDomainEvent(IDomainEvent @event)
         {
             var handlerInterface = typeof(IDomainEventHandler<>).MakeGenericType(@event.GetType());
