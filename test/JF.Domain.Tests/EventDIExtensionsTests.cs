@@ -33,10 +33,6 @@ namespace JF.Domain.Tests
     public class EventHandlerA
         : DomainEventHandler<TestEvent>
     {
-        public EventHandlerA(IServiceScopeFactory scopeFactory) : base(scopeFactory)
-        {
-        }
-
         public override Task RecieveAsync(TestEvent @event)
         {
             return Task.CompletedTask;
@@ -46,10 +42,6 @@ namespace JF.Domain.Tests
     public class EventHandlerB
     : DomainEventHandler<TestEvent>
     {
-        public EventHandlerB(IServiceScopeFactory scopeFactory) : base(scopeFactory)
-        {
-        }
-
         public override Task RecieveAsync(TestEvent @event)
         {
             return Task.CompletedTask;

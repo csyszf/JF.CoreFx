@@ -23,28 +23,7 @@ namespace JF.Domain.Tests
             var eventBus = sp.GetRequiredService<IEventBus>();
             await eventBus.PublishDomainEvent(new TestEvent());
 
-            await CanTimeoutTask(Wait, 3000);
             Assert.Equal(handlers.Length, TestEvent.cnt);
-
-            async Task CanTimeoutTask(Action action, int timeout)
-            {
-                var task1 = Task.Run(action);
-
-                var task2 = Task.Delay(timeout);
-
-                var firstTask = await Task.WhenAny(task1, task2);
-
-                if (firstTask == task2)
-                {
-                    throw new TimeoutException();
-                }
-            }
-
-            void Wait()
-            {
-                while (TestEvent.cnt != handlers.Length)
-                { }
-            }
         }
 
         class TestEvent : IDomainEvent
@@ -54,9 +33,6 @@ namespace JF.Domain.Tests
 
         class TestEventHandler : DomainEventHandler<TestEvent>
         {
-            public TestEventHandler(IServiceScopeFactory scopeFactory) : base(scopeFactory)
-            { }
-
             public override Task RecieveAsync(TestEvent @event)
             {
                 Interlocked.Increment(ref TestEvent.cnt);
