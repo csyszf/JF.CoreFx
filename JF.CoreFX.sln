@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{716EA19C-27BA-4DA9-8757-00D707962AA8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{1E823CC7-F20F-43F5-8EDD-AFA37B34EA6E}"
+	ProjectSection(SolutionItems) = preProject
+		tools\common.props = tools\common.props
+		tools\dependencies.props = tools\dependencies.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JF.Domain", "src\JF.Domain\JF.Domain.csproj", "{D49C8A94-FB80-4E42-9CC2-3718C8BFE5C9}"
 EndProject
@@ -17,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JF.Domain.Tests", "test\JF.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JF.Common", "src\JF.Common\JF.Common.csproj", "{8D92FB78-1FD9-45B2-BF72-51FD2A979A19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JF.WebAPI", "src\JF.WebAPI\JF.WebAPI.csproj", "{2874AB8B-D947-4952-8E94-16116E542CB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JF.WebAPI", "src\JF.WebAPI\JF.WebAPI.csproj", "{2874AB8B-D947-4952-8E94-16116E542CB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JF.IntegrationTestHelper", "src\JF.IntegrationTestHelper\JF.IntegrationTestHelper.csproj", "{316253AE-7779-4D08-8966-695326993E83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +47,10 @@ Global
 		{2874AB8B-D947-4952-8E94-16116E542CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2874AB8B-D947-4952-8E94-16116E542CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2874AB8B-D947-4952-8E94-16116E542CB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{316253AE-7779-4D08-8966-695326993E83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{316253AE-7779-4D08-8966-695326993E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{316253AE-7779-4D08-8966-695326993E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{316253AE-7779-4D08-8966-695326993E83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +61,7 @@ Global
 		{5B2B152D-1817-4DB2-9508-334106EA896B} = {231E2A27-55EF-46BE-924A-DC1CFB93BE16}
 		{8D92FB78-1FD9-45B2-BF72-51FD2A979A19} = {9490CF2C-CF37-434B-B24D-94A9A9C9E8AF}
 		{2874AB8B-D947-4952-8E94-16116E542CB3} = {9490CF2C-CF37-434B-B24D-94A9A9C9E8AF}
+		{316253AE-7779-4D08-8966-695326993E83} = {9490CF2C-CF37-434B-B24D-94A9A9C9E8AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {403C5DA2-31C0-4710-866C-60050A4EC550}
