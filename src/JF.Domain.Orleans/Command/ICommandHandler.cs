@@ -6,15 +6,21 @@ using Orleans;
 
 namespace JF.Domain.Command
 {
-    public interface ICommandHandler<in TCommand, TResult> : IGrainWithIntegerKey
+    public interface ICommandHandler<in TCommand, TResult> : ICommandHandler
         where TCommand : ICommand<TResult>
+        where TResult : CommandResult
     {
         Task<TResult> HandleAsync(TCommand command);
     }
 
-    public interface ICommandHandler<in TCommand> : ICommandHandler<TCommand, CommandResult>
-        where TCommand : ICommand
+    public interface ICommandHandler<in TCommand>: ICommandHandler<TCommand, CommandResult>
+        where TCommand : ICommand<CommandResult>
     {
+    }
+
+    public interface ICommandHandler: IGrainWithIntegerKey
+    {
+
     }
 
 }

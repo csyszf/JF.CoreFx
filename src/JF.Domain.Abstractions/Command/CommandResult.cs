@@ -9,12 +9,25 @@ namespace JF.Domain.Command
         public static CommandResult Ok => new CommandResult();
         public CommandResult()
         { }
-        public CommandResult(string errorCode)
+        public CommandResult(string errorMessage)
         {
-            ErrorCode = errorCode;
+            ErrorMessage = errorMessage;
             Succeed = false;
         }
         public bool Succeed { get; private set; } = true;
-        public string ErrorCode { get; private set; }
+        public string ErrorMessage { get; private set; }
+    }
+
+    public class CommandResult<TPayload>: CommandResult
+    {
+        public new static CommandResult<TPayload> Ok(TPayload payload) =>
+            new CommandResult<TPayload>(payload);
+
+        public CommandResult(TPayload payload)
+        {
+            Payload = payload;
+        }
+
+        public TPayload Payload { get; set; }
     }
 }

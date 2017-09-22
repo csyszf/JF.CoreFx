@@ -8,14 +8,17 @@ namespace JF.Domain.Command
 {
     public interface ICommandBus
     {
-        Task<R> SendAsync<T, R>(
-            T command, 
+        Task<TResult> SendAsync<TCommand, TResult>(
+            TCommand command,
             CancellationToken cancellationToken = default
-            ) where T : ICommand<R>;
+            )
+            where TCommand : ICommand<TResult>
+            where TResult: CommandResult;
 
-        Task<CommandResult> SendAsync<T>(
-            T command,
+        Task<CommandResult> SendAsync<TCommand>(
+            TCommand command,
             CancellationToken cancellationToken = default
-            ) where T : ICommand;
+            ) 
+            where TCommand : ICommand<CommandResult>;
     }
 }

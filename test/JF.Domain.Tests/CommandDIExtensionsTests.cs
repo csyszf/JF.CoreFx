@@ -19,23 +19,30 @@ namespace JF.Domain.Tests
             var sp = services.BuildServiceProvider();
 
             Assert.IsType<TestCommandHandler>(sp.GetRequiredService<ICommandHandler<CommandA>>());
-            Assert.IsType<TestCommandHandler>(sp.GetRequiredService<ICommandHandler<CommandB, string>>());
+            Assert.IsType<TestCommandHandler>(sp.GetRequiredService<ICommandHandler<CommandB, StringResult>>());
         }
     }
 
-    public class CommandA: ICommand { }
+    public class CommandA: ICommand<CommandResult> { }
 
-    public class CommandB: ICommand<string> { }
+    public class CommandB: ICommand<StringResult> { }
+
+    public class StringResult : CommandResult<string>
+    {
+        public StringResult(string payload) : base(payload)
+        {
+        }
+    }
 
     public class TestCommandHandler
-        : ICommandHandler<CommandA>, ICommandHandler<CommandB, string>
+        : ICommandHandler<CommandA>, ICommandHandler<CommandB, StringResult>
     {
         public Task<CommandResult> HandleAsync(CommandA command, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> HandleAsync(CommandB command, CancellationToken cancellationToken = default)
+        public Task<StringResult> HandleAsync(CommandB command, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

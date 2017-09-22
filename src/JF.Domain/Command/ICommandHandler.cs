@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace JF.Domain.Command
 {
-    public interface ICommandHandler<in T,R> where T: ICommand<R>
+    public interface ICommandHandler<in TCommand,TResult>
+        where TCommand: ICommand<TResult>
+        where TResult: CommandResult
     {
-        Task<R> HandleAsync(T command, CancellationToken cancellationToken = default);
+        Task<TResult> HandleAsync(TCommand command, CancellationToken cancellationToken = default);
     }
 
-    public interface ICommandHandler<in T> where T : ICommand
+    public interface ICommandHandler<in TCommand>: ICommandHandler<TCommand, CommandResult> 
+        where TCommand : ICommand<CommandResult>
     {
-        Task<CommandResult> HandleAsync(T command, CancellationToken cancellationToken = default);
     }
 }

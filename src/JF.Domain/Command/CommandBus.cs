@@ -16,15 +16,18 @@ namespace JF.Domain.Command
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
 
-        public Task<R> SendAsync<T, R>(T command, CancellationToken cancellationToken = default) where T : ICommand<R>
+        public Task<TResult> SendAsync<TCommand, TResult>(TCommand command, CancellationToken cancellationToken = default)
+            where TCommand : ICommand<TResult>
+            where TResult : CommandResult
         {
-            var handler = _serviceProvider.GetRequiredService<ICommandHandler<T, R>>();
+            var handler = _serviceProvider.GetRequiredService<ICommandHandler<TCommand, TResult>>();
             return handler.HandleAsync(command, cancellationToken);
         }
 
-        public Task<CommandResult> SendAsync<T>(T command, CancellationToken cancellationToken = default) where T : ICommand
+        public Task<CommandResult> SendAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default)
+            where TCommand : ICommand<CommandResult>
         {
-            var handler = _serviceProvider.GetRequiredService<ICommandHandler<T>>();
+            var handler = _serviceProvider.GetRequiredService<ICommandHandler<TCommand>>();
             return handler.HandleAsync(command, cancellationToken);
         }
     }
