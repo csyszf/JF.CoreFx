@@ -29,9 +29,6 @@ namespace JF.Domain.Tests
 
     public class StringResult : CommandResult<string>
     {
-        public StringResult(string payload) : base(payload)
-        {
-        }
     }
 
     public class TestCommandHandler
