@@ -36,4 +36,5 @@ namespace JF.Domain.Command
 
         public TPayload Payload { get; private set; }
     }
+
 }
