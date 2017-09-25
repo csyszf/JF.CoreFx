@@ -23,13 +23,9 @@ namespace JF.Domain.Tests
         }
     }
 
-    public class CommandA: ICommand<CommandResult> { }
+    public class CommandA: ICommand { }
 
-    public class CommandB: ICommand<StringResult> { }
-
-    public class StringResult : CommandResult<string>
-    {
-    }
+    public class CommandB: ICommand { }
 
     public class TestCommandHandler
         : ICommandHandler<CommandA>, ICommandHandler<CommandB, StringResult>

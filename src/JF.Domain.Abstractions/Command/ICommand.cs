@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace JF.Domain.Command
 {
-    public interface ICommand<TResult>: ICommand
-        where TResult: CommandResult
-    {
+    //public interface ICommand<TResult>: ICommand
+    //    where TResult: CommandResult
+    //{
 
-    }
+    //}
 
     public interface ICommand
     {

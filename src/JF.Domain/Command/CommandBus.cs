@@ -17,7 +17,7 @@ namespace JF.Domain.Command
         }
 
         public Task<TResult> SendAsync<TCommand, TResult>(TCommand command, CancellationToken cancellationToken = default)
-            where TCommand : ICommand<TResult>
+            where TCommand : ICommand
             where TResult : CommandResult
         {
             var handler = _serviceProvider.GetRequiredService<ICommandHandler<TCommand, TResult>>();
@@ -25,7 +25,7 @@ namespace JF.Domain.Command
         }
 
         public Task<CommandResult> SendAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default)
-            where TCommand : ICommand<CommandResult>
+            where TCommand : ICommand
         {
             var handler = _serviceProvider.GetRequiredService<ICommandHandler<TCommand>>();
             return handler.HandleAsync(command, cancellationToken);
