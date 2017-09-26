@@ -19,10 +19,11 @@ namespace JF.Domain.Command
 
         public virtual bool Equals(CommandResult other)
         {
+            if (GetType() != other.GetType()) return false;
             if (Succeed)
                 return other.Succeed;
             else
-                return (!other.Succeed && ErrorMessage == ErrorMessage);
+                return (!other.Succeed && ErrorMessage == other.ErrorMessage);
         }
     }
 
@@ -33,10 +34,11 @@ namespace JF.Domain.Command
 
         public virtual bool Equals(CommandResult<TPayload> other)
         {
+            if (GetType() != other.GetType()) return false;
             if (Succeed)
                 return (other.Succeed && Payload.Equals(other.Payload));
             else
-                return (!other.Succeed && ErrorMessage == ErrorMessage);
+                return (!other.Succeed && ErrorMessage == other.ErrorMessage);
         }
     }
 
