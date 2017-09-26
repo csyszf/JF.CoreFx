@@ -6,8 +6,8 @@ namespace JF.Domain.Command
 {
     public class CommandResult
     {
-        private static CommandResult Ok => new CommandResult { Succeed = true };
-        private static CommandResult Error(string errorMessage) =>
+        public static CommandResult Ok => new CommandResult { Succeed = true };
+        public static CommandResult Error(string errorMessage) =>
             new CommandResult
             {
                 Succeed = false,
